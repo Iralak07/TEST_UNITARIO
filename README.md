@@ -212,6 +212,79 @@ La prueba de caja blanca, también conocida como prueba de caja de cristal o pru
 
 La prueba de caja negra es una técnica de prueba de software en la que se evalúa el funcionamiento de un sistema o componente sin conocer su estructura interna o lógica. En lugar de ello, se prueban las entradas y salidas del sistema, así como su comportamiento esperado, con base en las especificaciones externas.
 
+### Usando setUp y tearDown
+
+Otra de las ventajas de usar unittest, es que nos ofrece la posibilidad de definir funciones comunes que son ejecutadas antes y después de cada test. Estos métodos son setUp() y tearDown().
+
+    import unittest  # Importación del módulo unittest
+    
+    class MyTestCase1(unittest.TestCase):  # Definición de la clase de prueba MyTestCase1 que hereda de unittest.TestCase
+    
+        # Only use setUp() and tearDown() if necessary
+        # Comentario sobre el uso de setUp() y tearDown() solamente si son necesarios
+    
+        def setUp(self):
+            ...  # Código para ejecutar en preparación para las pruebas
+            # Método setUp() para realizar configuraciones previas a las pruebas
+    
+        def tearDown(self):
+            ...  # Código para ejecutar para limpiar después de las pruebas
+            # Método tearDown() para realizar acciones de limpieza después de las pruebas
+    
+        def test_feature_one(self):
+            # Test feature one.
+            ...  # Código de prueba para la característica uno
+            # Método de prueba para verificar una característica específica del código
+    
+        def test_feature_two(self):
+            # Test feature two.
+            ...  # Código de prueba para la característica dos
+            # Método de prueba para verificar otra característica del código
+
+
+### Organizando el código de prueba
+
+- Componentes básicos de las pruebas unitarias: Se refiere a los elementos fundamentales que componen las pruebas unitarias. En este contexto, los casos de prueba son la piedra angular de las pruebas unitarias. Estos casos de prueba son escenarios específicos que se diseñan para verificar el comportamiento de una pequeña parte de código, como una función o un método de una clase.
+
+- Casos de prueba representados por unittest.TestCase: En el módulo unittest de Python, los casos de prueba se representan mediante la clase TestCase. Cada instancia de TestCase es un caso de prueba individual que contiene métodos para configurar el entorno de prueba, ejecutar pruebas y realizar comprobaciones sobre los resultados esperados.
+
+- Creación de casos de prueba propios: Para crear sus propios casos de prueba, debe escribir subclases de TestCase o usar FunctionTestCase. Esto significa que puede definir sus propias clases que hereden de TestCase y agregar métodos de prueba específicos para las partes de su código que desea probar. Alternativamente, puede utilizar FunctionTestCase para envolver funciones individuales como casos de prueba.
+
+
+En el contexto de las pruebas unitarias, la subclase más básica de TestCase simplemente consiste en implementar un método de prueba. Estos métodos de prueba, identificados por su nombre que comienza con "test", están diseñados para ejecutar tareas específicas de prueba en el código que queremos evaluar. Cada uno de estos métodos de prueba se encarga de verificar un aspecto particular del comportamiento del código bajo prueba.
+
+    import unittest
+    
+    class DefaultWidgetSizeTestCase(unittest.TestCase):
+        def test_default_widget_size(self):
+            widget = Widget('The widget')
+            self.assertEqual(widget.size(), (50, 50))
+
+Cuando escribimos pruebas, a menudo nos encontramos con que hay muchas configuraciones repetitivas que debemos hacer. Afortunadamente, podemos simplificar este proceso mediante el uso de un método llamado setUp(). Este método es implementado por nosotros y el marco de pruebas automáticamente lo llamará antes de ejecutar cada prueba que escribamos. Esto nos permite realizar configuraciones comunes necesarias para nuestras pruebas de manera eficiente y sin repetición en cada método de prueba individual.
+
+    import unittest
+    
+    class WidgetTestCase(unittest.TestCase):
+    
+        # Método setUp para configurar el entorno de prueba
+        def setUp(self):
+            # Creación de una instancia de Widget con el nombre 'The widget'
+            self.widget = Widget('The widget')
+    
+        # Primer método de prueba: Verifica el tamaño predeterminado del widget
+        def test_default_widget_size(self):
+            # Comprobación de que el tamaño del widget es (50,50) por defecto
+            self.assertEqual(self.widget.size(), (50,50),
+                             'incorrect default size')
+    
+        # Segundo método de prueba: Verifica la capacidad de redimensionar el widget
+        def test_widget_resize(self):
+            # Redimensionamiento del widget a (100,150)
+            self.widget.resize(100,150)
+            # Comprobación de que el tamaño del widget es (100,150) después de la redimensión
+            self.assertEqual(self.widget.size(), (100,150),
+                             'wrong size after resize') # en caso de que falle el test envia un mensaje de error!
+
 
 
 
