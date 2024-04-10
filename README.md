@@ -45,6 +45,7 @@ Escribiríamos una prueba automatizada para esta función utilizando la declarac
 ### Tests Unitarios 
 
 Concepto:
+
 Los test unitarios, también conocidos como pruebas unitarias, son un tipo de prueba en el desarrollo de software donde se prueban las unidades más pequeñas y aisladas de código, típicamente funciones, métodos o clases, de manera individual. El objetivo principal de las pruebas unitarias es asegurarse de que cada unidad de código funcione correctamente de forma independiente, según lo diseñado.
 
 ##### Ejemplos en Python:
@@ -99,12 +100,101 @@ Si ejecutamos el código anterior, obtendremos el siguiente resultado. Esta es u
 En cada test ejecutamos las comprobaciones necesarias, usando assertEqual en vez de assert, pero su comportamiento es totalmente análogo.
 
 
+#### Metodos utiles de unittest
+
+El módulo unittest de Python proporciona varios métodos útiles que se utilizan comúnmente al escribir pruebas unitarias. Aquí hay una lista de algunos de los métodos más utilizados en unittest.TestCase, junto con su función y ejemplos:
+
+Metodo: assertEqual()
+Comprueba si a es igual a b.
+
+    import unittest
+    
+    class TestAssertEqual(unittest.TestCase):
+        def test_equal(self):
+            self.assertEqual(2 + 2, 4)
+            self.assertEqual("hello", "hello")
+    
+    if __name__ == '__main__':
+        unittest.main()
+
+Metodo: assertTrue(expr):
+Función: Comprueba si la expresión expr es verdadera.
+
+import unittest
+
+    class TestAssertTrue(unittest.TestCase):
+        def test_true(self):
+            self.assertTrue(2 + 2 == 4)
+            self.assertTrue(len([1, 2, 3]) == 3)
+    
+    if __name__ == '__main__':
+        unittest.main()
 
 
+Metodo: assertFalse(expr):
+Función: Comprueba si la expresión expr es falsa.
+
+    import unittest
+    
+    class TestAssertFalse(unittest.TestCase):
+        def test_false(self):
+            self.assertFalse(2 + 2 == 5)
+            self.assertFalse(len([]) > 0)
+    
+    if __name__ == '__main__':
+        unittest.main()
+
+Metodo: assertRaises(exc, callable, *args, kwargs):
+Función: Comprueba si callable(*args, **kwargs) levanta una excepción de tipo exc.
+    
+
+    import unittest
+    
+    def dividir(a, b):
+        return a / b
+    
+    class TestAssertRaises(unittest.TestCase):
+        def test_raises(self):
+            self.assertRaises(ZeroDivisionError, dividir, 1, 0)
+    
+    if __name__ == '__main__':
+        unittest.main()
+
+Metodo: assertIn(a, b):
+Función: Comprueba si a está en b.
+
+    import unittest
+    
+    class TestAssertIn(unittest.TestCase):
+        def test_in(self):
+            self.assertIn(2, [1, 2, 3])
+            self.assertIn('a', 'banana')
+    
+    if __name__ == '__main__':
+        unittest.main()
+
+Metodo: assertNotIn(a, b):
+Función: Comprueba si a no está en b.
+    
+    import unittest
+    
+    class TestAssertNotIn(unittest.TestCase):
+        def test_not_in(self):
+            self.assertNotIn(4, [1, 2, 3])
+            self.assertNotIn('x', 'banana')
+    
+    if __name__ == '__main__':
+        unittest.main()
 
 
+Algunas caracteristicas de unittest:
 
-Algunas pautas para recordar: 
+- accesorio de prueba: Un dispositivo de prueba representa la preparación necesaria para realizar uno o más pruebas y cualquier acción de limpieza asociada. Esto puede implicar, por ejemplo, crear bases de datos, directorios temporales o proxy o iniciar un servidor proceso.
+- caso de prueba: Un caso de prueba es la unidad individual de prueba. Comprueba si hay un determinado respuesta a un conjunto particular de entradas. unittestproporciona una clase base, TestCase, que puede usarse para crear nuevos casos de prueba.
+
+
+Algunas pautas importante para recordar: 
+
 - Debe probar todos los aspectos de su propio código, pero no las bibliotecas o funcionalidades proporcionadas como parte de Python o Django.
 - Una es nombrar el módulo de prueba comenzándolo con test_ y terminarlo con el nombre del módulo que se está probando.
 - No se debe incluir una cadena de caracteres de documentación para el método.
